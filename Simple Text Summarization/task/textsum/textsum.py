@@ -21,9 +21,10 @@ def sent_imp(txt):
     sents = sent_tokenize(txt)
     sentence_num = round(math.sqrt(len(sents)))
     for sentence in sents:
-        for word in word_tokenize(sentence.lower()):
-            lemma = lemmatizer.lemmatize(word)
-            if lemma not in stopwords.words('english') and lemma not in list(string.punctuation):
+        for word in word_tokenize(sentence):
+            word = word.lower()
+            if word not in stopwords.words('english') and word not in list(string.punctuation):
+                lemma = lemmatizer.lemmatize(word)
                 lemmas_total.append(lemma)
                 lemma_freq.setdefault(lemma, 0)
                 lemma_freq[lemma] += 1
@@ -33,9 +34,10 @@ def sent_imp(txt):
     for sentence in sents:
         lemmas_in_sent = []
         prob_in_sent = []
-        for word in word_tokenize(sentence.lower()):
-            lemma = lemmatizer.lemmatize(word)
-            if lemma not in stopwords.words('english') and lemma not in list(string.punctuation):
+        for word in word_tokenize(sentence):
+            word = word.lower()
+            if word not in stopwords.words('english') and word not in list(string.punctuation):
+                lemma = lemmatizer.lemmatize(word.lower())
                 lemmas_in_sent.append(lemma)
                 lemma_prob.setdefault(lemma, lemma_freq[lemma]/len(lemmas_total))
                 prob_in_sent.append(lemma_prob[lemma])
